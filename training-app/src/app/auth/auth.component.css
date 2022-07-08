@@ -1,0 +1,7 @@
+input.ng-invalid{
+  border: solid 1px red;
+}
+span{
+  color:red;
+  opacity: 0.5;
+}
