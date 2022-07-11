@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/shared/user.model';
 import { UserService } from '../user.service';
 
@@ -9,43 +10,69 @@ import { UserService } from '../user.service';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
-export class UserEditComponent implements OnInit {
-  editForm!: FormGroup;
+export class UserEditComponent implements OnInit, OnDestroy {
+  editForm = new FormGroup({
+    'name': new FormControl(''),
+    'username': new FormControl(''),
+    'email': new FormControl(''),
+    'image': new FormControl('')
+  });
+  subscription: Subscription;
+  editMode = false;
+  userData: UserModel;
 
-  constructor (private router: Router,
+  constructor(private router: Router,
     private userService: UserService) { }
 
   ngOnInit(): void {
+    console.log('test sub');
     this.initForm();
+    // this.subscription = this.userService.startedEditMode.subscribe((isEdit: boolean) => {
+    //   console.log('test sub');
+
+    //   this.editMode = isEdit;
+    //   this.userData = this.userService.getUserData();
+
+    //   this.editForm.setValue({ 
+    //     name: this.userData.name,
+    //     username: this.userData.username,
+    //     email: this.userData.email,
+    //     image: this.userData.image
+    //   })
+    // });
   }
   initForm() {
-    let name = this.userService.userData.name;
-    let username = this.userService.userData.username;
-    let email = this.userService.userData.email;
-    let imageUrl = this.userService.userData.image;
+    let user = this.userService.getUserData();
 
     this.editForm = new FormGroup({
-      'name': new FormControl(name),
-      'username': new FormControl(username),
-      'email': new FormControl(email),
-      'image': new FormControl(imageUrl)
+      'name': new FormControl(user.name),
+      'username': new FormControl(user.username),
+      'email': new FormControl(user.email),
+      'image': new FormControl(user.image)
     });
 
   }
 
   onSave() {
-    const newUserData = new UserModel(
-      this.editForm.value['name'],
-      this.editForm.value['username'],
-      this.editForm.value['email'],
-      this.editForm.value['image']
+    let newUserData = new UserModel(
+      this.editForm.value['username']!,
+      this.editForm.value['name']!,
+      this.editForm.value['email']!,
+      this.editForm.value['image']!
     );
 
-    this.userService.userData = newUserData;
-    this.router.navigate(['/profile']);
+    // this.userService.userData = newUserData;
+    // this.router.navigate(['/profile']);
+
+    this.userService.updateUserData(newUserData);
+
+
   }
   onCancel() {
-    this.router.navigate(['/profile']);
+    this.editMode = false;
+    this.editForm.reset();
   }
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }
