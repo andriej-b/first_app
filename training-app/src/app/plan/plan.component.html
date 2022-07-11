@@ -1,1 +1,110 @@
-<p>plan works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <button
+        ttype="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        *ngIf="editMode"
+      >
+        Add training</button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="toggleEditMode()"
+      >
+        Edit</button>
+      <table
+        class="table caption-top"
+        *ngFor="let trainingPlan of trainingPlans;let j =index"
+      >
+        <caption class="">{{trainingPlan.trainingName}}
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="onDelete(j)"
+            *ngIf="editMode"
+          >
+            Delete</button>
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">name</th>
+            <th scope="col">series</th>
+            <th scope="col">reps</th>
+            <th scope="col">weight</th>
+            <th scope="col">desc</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            scope="row"
+            *ngFor="let exercise of trainingPlan.exercises; let i = index"
+          >
+            <th scope="row">{{i+1}}</th>
+            <td>{{exercise.name}}</td>
+            <td>{{exercise.series}}</td>
+            <td>{{exercise.reps}}</td>
+            <td>{{exercise.weight}} kg</td>
+            <td>{{exercise.description}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="exampleModalLabel"
+              >Adding Training</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label
+                    for="trainingName"
+                    class="form-label"
+                  >Training name</label>
+                  <input
+                    type="text"
+                    id="trainingName"
+                    class="form-control"
+                  >
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >Close</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="onAddTraining()"
+              >Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
