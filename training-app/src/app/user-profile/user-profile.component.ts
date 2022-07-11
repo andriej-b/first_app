@@ -13,7 +13,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   user!: UserModel;
   editMode = false;
   private subscription: Subscription;
-  constructor(private router: Router,
+  constructor (private router: Router,
     private route: ActivatedRoute,
     private userService: UserService) { }
 
@@ -26,8 +26,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
   onEdit() {
     this.editMode = true;
+    console.log('editmode');
+
     this.userService.startedEditMode.next(this.editMode);
-    // this.router.navigate(['edit'], { relativeTo: this.route });
   }
   onDelete() {
     this.userService.deleteUserData();

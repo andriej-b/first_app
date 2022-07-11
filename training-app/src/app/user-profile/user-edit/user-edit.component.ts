@@ -21,25 +21,25 @@ export class UserEditComponent implements OnInit, OnDestroy {
   editMode = false;
   userData: UserModel;
 
-  constructor(private router: Router,
+  constructor (private router: Router,
     private userService: UserService) { }
 
   ngOnInit(): void {
-    console.log('test sub');
-    this.initForm();
-    // this.subscription = this.userService.startedEditMode.subscribe((isEdit: boolean) => {
-    //   console.log('test sub');
+    this.subscription = this.userService.startedEditMode.subscribe((isEdit: boolean) => {
+      console.log('test sub');
+      console.log('test sub');
+      this.initForm();
 
-    //   this.editMode = isEdit;
-    //   this.userData = this.userService.getUserData();
+      this.editMode = isEdit;
+      this.userData = this.userService.getUserData();
 
-    //   this.editForm.setValue({ 
-    //     name: this.userData.name,
-    //     username: this.userData.username,
-    //     email: this.userData.email,
-    //     image: this.userData.image
-    //   })
-    // });
+      this.editForm.setValue({
+        name: this.userData.name,
+        username: this.userData.username,
+        email: this.userData.email,
+        image: this.userData.image
+      });
+    });
   }
   initForm() {
     let user = this.userService.getUserData();

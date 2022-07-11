@@ -8,6 +8,7 @@ import { AuthComponent } from './auth/auth.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserEditComponent } from './user-profile/user-edit/user-edit.component';
+import { PlanComponent } from './plan/plan.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { UserEditComponent } from './user-profile/user-edit/user-edit.component'
     HeaderComponent,
     AuthComponent,
     UserProfileComponent,
-    UserEditComponent
+    UserEditComponent,
+    PlanComponent
   ],
   imports: [
     BrowserModule,

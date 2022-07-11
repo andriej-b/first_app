@@ -11,8 +11,6 @@ export class UserService {
     name: 'sample name',
     email: 'test@test',
     image: '../../assets/images/Screenshot from 2022-07-08 09-03-03.png',
-
-
   };
 
   getUserData() {
@@ -24,5 +22,14 @@ export class UserService {
   }
   deleteUserData() {
     this.userData = new UserModel('', '', '', '');
+  }
+  setUserData(email: string) {
+    this.userData = {
+      username: '',
+      name: '',
+      email: email,
+      image: '',
+
+    };
   }
 }
