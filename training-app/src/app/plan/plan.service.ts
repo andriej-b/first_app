@@ -51,9 +51,17 @@ export class PlanService {
   getTrainingPlans() {
     return this.trainingPlans.slice();
   }
+  getTrainingPlan(index: number) {
+    return this.trainingPlans[index];
+  }
   addTraining(trainingPlan: TrainingPlan) {
     this.trainingPlans.push(trainingPlan);
+    console.log(this.trainingPlans);
+
     this.trainingPlansChanged.next(this.trainingPlans.slice());
+  }
+  updateExercise() {
+
   }
   deleteTraining(index: number) {
     this.trainingPlans.splice(index, 1);
