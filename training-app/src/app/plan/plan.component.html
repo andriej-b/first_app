@@ -85,6 +85,7 @@
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                (click)="onCancel()"
               ></button>
             </div>
             <div class="modal-body">
@@ -180,10 +181,12 @@
                     type="button"
                     class="btn btn-secondary"
                     data-bs-dismiss="modal"
+                    (click)="onCancel()"
                   >Close</button>
                   <button
                     type="submit"
                     class="btn btn-primary"
+                    data-bs-dismiss="modal"
                   >Save</button>
                 </div>
               </form>
