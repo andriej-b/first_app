@@ -28,14 +28,14 @@ export class PlanComponent implements OnInit, OnDestroy {
   }
   private initForm() {
     let trainingName = null;
-    let exercises = new UntypedFormArray([]);
+    let exercises = new FormArray([]);
 
     console.log(exercises);
 
-    // this.newPlanForm = new FormGroup({
-    //   'trainingName': new FormControl(trainingName, Validators.required),
-    //   'exercises': exercises
-    // });
+    this.newPlanForm = new FormGroup({
+      'trainingName': new FormControl(trainingName, Validators.required),
+      'exercises': exercises
+    });
   }
   toggleEditMode() {
     this.editMode = !this.editMode;
@@ -52,7 +52,7 @@ export class PlanComponent implements OnInit, OnDestroy {
 
   }
   onAddExercise() {
-    (<UntypedFormArray>this.newPlanForm.get('exercises')).push(
+    (<FormArray>this.newPlanForm.get('exercises')).push(
       new FormGroup({
         'name': new FormControl(null, Validators.required),
         'series': new FormControl(null, Validators.required),
@@ -65,11 +65,11 @@ export class PlanComponent implements OnInit, OnDestroy {
   onUpdateTraining(index: number) {
     this.isUpdate = true;
     let trainingPlan = this.planServeice.getTrainingPlan(index);
-    let exercises: any[] = [];
+    let exercises = new FormArray([]);
     if (trainingPlan['exercises']) {
       for (let exercise of trainingPlan['exercises']) {
         console.log('test');
-        exercises.push(
+        (<FormArray>this.newPlanForm.get('exercises')).push(
           new FormGroup({
             'name': new FormControl(exercise.name),
             'series': new FormControl(exercise.series),
@@ -86,10 +86,10 @@ export class PlanComponent implements OnInit, OnDestroy {
     }
   }
   onDeleteExercise(index: number) {
-    (<UntypedFormArray>this.newPlanForm.get('exercises')).removeAt(index);
+    (<FormArray>this.newPlanForm.get('exercises')).removeAt(index);
   }
   get controls() {
-    return (<UntypedFormArray>this.newPlanForm.get('exercises')).controls;
+    return (<FormArray>this.newPlanForm.get('exercises')).controls;
   }
   onDelete(index: number) {
     this.planServeice.deleteTraining(index);

@@ -1,9 +1,9 @@
 export interface Exercise {
   name: string;
   description: string;
-  series: number;
-  reps: number;
-  weight: number;
+  series: string;
+  reps: string;
+  weight: string;
 }
 
 export class TrainingPlan {
