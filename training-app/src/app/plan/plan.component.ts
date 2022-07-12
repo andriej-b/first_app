@@ -25,6 +25,8 @@ export class PlanComponent implements OnInit, OnDestroy {
     this.trainingPlans = this.planServeice.getTrainingPlans();
     // console.log(this.trainingPlans[0]);
     this.tPlansSub = this.planServeice.trainingPlansChanged.subscribe((plans: TrainingPlan[]) => {
+      console.log('plan test init');
+
       this.trainingPlans = plans;
     });
     this.initForm();

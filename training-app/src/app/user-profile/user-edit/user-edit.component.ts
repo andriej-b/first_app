@@ -25,21 +25,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private userService: UserService) { }
 
   ngOnInit(): void {
-    this.subscription = this.userService.startedEditMode.subscribe((isEdit: boolean) => {
-      console.log('test sub');
-      console.log('test sub');
-      this.initForm();
+    // console.log(this.subscription);
+    // this.subscription = this.userService.startedEditMode.subscribe((editMode: boolean) => {
+    //   console.log(this.subscription);
+    // });
+    this.initForm();
+    // console.log(this.subscription);
 
-      this.editMode = isEdit;
-      this.userData = this.userService.getUserData();
-
-      this.editForm.setValue({
-        name: this.userData.name,
-        username: this.userData.username,
-        email: this.userData.email,
-        image: this.userData.image
-      });
-    });
   }
   initForm() {
     let user = this.userService.getUserData();
@@ -60,7 +52,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       this.editForm.value['email']!,
       this.editForm.value['image']!
     );
-
+    this.userService.startedEditMode.next(false);
     // this.userService.userData = newUserData;
     // this.router.navigate(['/profile']);
 
@@ -69,10 +61,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   }
   onCancel() {
-    this.editMode = false;
+    // this.editMode = false;
+    this.userService.startedEditMode.next(false);
     this.editForm.reset();
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }
