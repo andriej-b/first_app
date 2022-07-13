@@ -1,19 +1,30 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from "rxjs";
 import { catchError, map, retry, tap } from "rxjs/operators";
 import { PlanService } from "../plan/plan.service";
 import { TrainingPlan } from "./trainingPlan.model";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataStorageService {
+export class DataStorageService implements OnInit {
+  userToken: string = null;
   constructor (private http: HttpClient,
-    private planService: PlanService) {
+    private planService: PlanService,
+    private authService: AuthService) {
 
   }
+
+  ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      this.userToken = user.token;
+    });
+  }
+
   fetchData() {
+
     return this.http.get<TrainingPlan[]>(
       'https://ng-project-9ef3b-default-rtdb.europe-west1.firebasedatabase.app/trainingPlans.json'
     ).pipe(

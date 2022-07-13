@@ -62,7 +62,7 @@ export class AuthService {
     const loadedUser = new AuthUserModel(
       userData.email,
       userData.id,
-      userData.id,
+      userData._token,
       userData._tokenExpiresIn
     );
     if (loadedUser.token) {

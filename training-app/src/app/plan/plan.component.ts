@@ -32,6 +32,9 @@ export class PlanComponent implements OnInit, OnDestroy {
     this.initForm();
     this.onFetch();
   }
+  get controls() {
+    return (<FormArray>this.newPlanForm.get('exercises')).controls;
+  }
   private initForm() {
     let trainingName = null;
     let exercises = new FormArray([]);
@@ -67,15 +70,7 @@ export class PlanComponent implements OnInit, OnDestroy {
     this.dataStorageService.fetchData().subscribe();
   }
   onAddExercise() {
-    (<FormArray>this.newPlanForm.get('exercises')).push(
-      new FormGroup({
-        'name': new FormControl(null, Validators.required),
-        'series': new FormControl(null, Validators.required),
-        'reps': new FormControl(null, Validators.required),
-        'weight': new FormControl(null, Validators.required),
-        'description': new FormControl(null, Validators.required),
-      })
-    );
+
   }
   onUpdateTraining(index: number) {
     this.isUpdate = true;
@@ -102,11 +97,8 @@ export class PlanComponent implements OnInit, OnDestroy {
     }
   }
   onDeleteExercise(index: number) {
-    (<FormArray>this.newPlanForm.get('exercises')).removeAt(index);
   }
-  get controls() {
-    return (<FormArray>this.newPlanForm.get('exercises')).controls;
-  }
+
   onDelete(index: number) {
     this.planServeice.deleteTraining(index);
     this.dataStorageService.storeData();

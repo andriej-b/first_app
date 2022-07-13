@@ -1,0 +1,128 @@
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5
+          class="modal-title"
+          id="exampleModalLabel"
+        >Adding Training</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="onCancel()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="newPlanForm"
+          (ngSubmit)="onAddTraining()"
+        >
+          <div class="form-group">
+            <input
+              type="text"
+              id="trainingName"
+              class="form-control"
+              formControlName="name"
+              placeholder="Training Name"
+              formControlName="trainingName"
+            >
+            <div class="row">
+              <div
+                class="col-xs-2"
+                formArrayName="exercises"
+              >
+                <div
+                  class="row"
+                  *ngFor="let exerCtrl of controls; let j = index"
+                  [formGroupName]="j"
+                >
+                  <div class="col">
+                    <!-- <label for="name">Name</label> -->
+                    <input
+                      class="form-control"
+                      placeholder="Name"
+                      formControlName="name"
+                    >
+                  </div>
+                  <div class="col">
+                    <!-- <label for="name">Name</label> -->
+                    <input
+                      class="form-control"
+                      placeholder="Series"
+                      formControlName="series"
+                    >
+                  </div>
+                  <div class="col">
+                    <!-- <label for="name">Name</label> -->
+                    <input
+                      class="form-control"
+                      placeholder="Reps"
+                      formControlName="reps"
+                    >
+                  </div>
+                  <div class="input-group col">
+                    <!-- <label for="name">Name</label> -->
+                    <input
+                      class="form-control"
+                      placeholder="Weight"
+                      aria-describedby="unit"
+                      formControlName="weight"
+                    >
+                    <span
+                      class="input-group-text"
+                      id="unit"
+                    >kg</span>
+                  </div>
+                  <div class="col">
+                    <!-- <label for="name">Name</label> -->
+                    <input
+                      id="name"
+                      class="form-control"
+                      placeholder="Description"
+                      formControlName="description"
+                    >
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-danger col-sm-1"
+                    (click)="onDeleteExercise(j)"
+                  >X</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-8 m-auto">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="onAddExercise()"
+                >+</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="onCancel()"
+            >Close</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,8 +9,10 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserEditComponent } from './user-profile/user-edit/user-edit.component';
 import { PlanComponent } from './plan/plan.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule } from '@auth0/auth0-angular';
+import { PlanEditComponent } from './plan/plan-edit/plan-edit.component';
+import { AuthInterceptor } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { AuthModule } from '@auth0/auth0-angular';
     AuthComponent,
     UserProfileComponent,
     UserEditComponent,
-    PlanComponent
+    PlanComponent,
+    PlanEditComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,13 @@ import { AuthModule } from '@auth0/auth0-angular';
     //   clientId:'D8VzGdRmloF5OdnFBMhq5dlEVSMfefxg'
     // })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
