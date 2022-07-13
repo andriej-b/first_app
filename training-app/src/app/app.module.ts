@@ -13,6 +13,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule } from '@auth0/auth0-angular';
 import { PlanEditComponent } from './plan/plan-edit/plan-edit.component';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,9 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+
     // AuthModule.forRoot({
     //   domain:'dev-tnbs5geg.us.auth0.com',
     //   clientId:'D8VzGdRmloF5OdnFBMhq5dlEVSMfefxg'
