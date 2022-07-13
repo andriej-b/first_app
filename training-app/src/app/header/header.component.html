@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default">
   <div class="navbar-fluid ">
-    <ul class="nav ">
+    <ul class="nav">
       <li
         class="nav-item"
         routerLinkActive="active"
@@ -20,6 +20,7 @@
         <a
           class="nav-link"
           routerLink="/auth"
+          *ngIf="!isLoggedIn"
         >Login</a>
       </li>
       <li
@@ -28,7 +29,19 @@
       >
         <a
           class="nav-link"
+          routerLink="/auth"
+          *ngIf="isLoggedIn"
+          (click)="onLogout()"
+        >Logout</a>
+      </li>
+      <li
+        class="nav-item justify-content-end"
+        routerLinkActive="activate"
+      >
+        <a
+          class="nav-link"
           routerLink="/profile"
+          *ngIf="isLoggedIn"
         >My Account</a>
       </li>
     </ul>
