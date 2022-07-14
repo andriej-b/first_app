@@ -1,69 +1,60 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 border border-1 rounded">
-      <form
-        [formGroup]="userForm"
-        (ngSubmit)="onSubmit()"
+<mat-card class="margin-top">
+  <mat-card-title>{{registerMode? 'Register' : 'Login'}} Form</mat-card-title>
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="onSubmit()"
+  >
+
+    <!-- <label for="email">Email</label>
+      <input
+        type="text"
+        id="usermane"
+        class="form-control"
+        formControlName="email"
+      > -->
+    <mat-form-field
+      appearance="fill"
+      [floatLabel]="getFloatLabelValue()"
+      class="full-width"
+    >
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="example@example.com"
+        formControlName="email"
       >
-        <!-- <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="usermane"
-            class="form-control"
-          >
-        </div> -->
+      <mat-error *ngIf="!userForm.get('email')?.valid && userForm.get('email')?.touched">Invalid email</mat-error>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="text"
-            id="usermane"
-            class="form-control"
-            formControlName="email"
-          >
-          <span
-            class="help-block"
-            *ngIf="!userForm.get('email')?.valid && userForm.get('email')?.touched"
-          >
-            Invalid email
-          </span>
-        </div>
+    </mat-form-field>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            formControlName="password"
-          >
-          <span
-            class="help-block"
-            *ngIf="!userForm.get('password')?.valid && userForm.get('password')?.touched"
-          >
-            Invalid password
-          </span>
-        </div>
+    <mat-form-field
+      appearance="fill"
+      [floatLabel]="getFloatLabelValue()"
+      class="full-width"
+    >
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+      >
+      <mat-error *ngIf="!userForm.get('password')?.valid && userForm.get('password')?.touched">Invalid password
+      </mat-error>
 
-        <div class="btn-group mt-2 mb-2">
-          <button
-            type="submit"
-            class="btn btn-primary "
-            [disabled]="!userForm.valid"
-          >
-            {{registerMode? 'Register' : 'Login'}}</button>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <button
+        mat-button
+        color="primary"
+      >{{registerMode? 'Register' : 'Login'}}</button>
 
-
-          <button
-            type="button"
-            class="btn btn-primary"
-            (click)="switchMode()"
-          >Switch to {{registerMode? 'Login':'Register'}}</button>
-        </div>
-
-
-      </form>
-    </div>
-  </div>
-</div>
+      <button
+        type="button"
+        mat-button
+        color="primary"
+        (click)="switchMode()"
+      >Switch to {{registerMode? 'Login':'Register'}}</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

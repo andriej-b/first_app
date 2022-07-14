@@ -5,6 +5,7 @@
 /* eslint-disable import/no-unresolved */
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { UserService } from '../user-profile/user.service';
 import { AuthService } from './auth.service';
@@ -17,7 +18,7 @@ import { AuthService } from './auth.service';
 // eslint-disable-next-line import/prefer-default-export
 export class AuthComponent implements OnInit {
   registerMode = false;
-
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
   userForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -57,6 +58,9 @@ export class AuthComponent implements OnInit {
       });
     }
 
+  }
+  getFloatLabelValue() {
+    return this.floatLabelControl.value || 'auto';
   }
 
   switchMode() {

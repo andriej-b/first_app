@@ -1,7 +1,6 @@
-input.ng-invalid{
-  border: solid 1px red;
+.margin-top{
+  margin-top: 2%;
 }
-span{
-  color:red;
-  opacity: 0.5;
+.full-width{
+  width: 100%;
 }
