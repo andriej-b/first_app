@@ -15,6 +15,8 @@ import { PlanEditComponent } from './plan/plan-edit/plan-edit.component';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { TrainingPlanComponent } from './plan/training-plan/training-plan.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MaterialModule } from './material/material.module';
     UserProfileComponent,
     UserEditComponent,
     PlanComponent,
-    PlanEditComponent
+    PlanEditComponent,
+    TrainingPlanComponent
   ],
   imports: [
     BrowserModule,
