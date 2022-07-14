@@ -43,6 +43,7 @@ export class AuthComponent implements OnInit {
       this.authService.register(email, password).subscribe(
         (resData) => {
           // console.log(resData);
+          this.router.navigate(['/profile']);
         },
         (error) => {
           console.log(error);
@@ -52,10 +53,10 @@ export class AuthComponent implements OnInit {
     } else {
       this.authService.login(email, password).subscribe((resData) => {
         // console.log(resData);
-
+        this.router.navigate(['/profile']);
       });
     }
-    this.router.navigate(['/profile']);
+
   }
 
   switchMode() {

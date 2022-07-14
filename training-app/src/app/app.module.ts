@@ -14,7 +14,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { PlanEditComponent } from './plan/plan-edit/plan-edit.component';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { MatSliderModule } from '@angular/material/slider';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSliderModule,
+    MaterialModule,
 
     // AuthModule.forRoot({
     //   domain:'dev-tnbs5geg.us.auth0.com',

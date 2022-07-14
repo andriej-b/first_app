@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<!-- <nav class="navbar navbar-default">
   <div class="navbar-fluid ">
     <ul class="nav">
       <li
@@ -31,7 +31,6 @@
           class="nav-link"
           routerLink="/auth"
           *ngIf="isLoggedIn"
-          (click)="onLogout()"
         >Logout</a>
       </li>
       <li
@@ -48,4 +47,35 @@
 
 
   </div>
+</nav> -->
+
+
+<nav mat-tab-nav-bar>
+  <div *ngFor="let link of navLinks">
+
+    <a
+      mat-tab-link
+      *ngIf="link.index<3 || (link.index==3 && isLoggedIn==false) || (link.index==4 && isLoggedIn == true)"
+      [routerLink]="link.link"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+      (click)="onLogout(link.index)"
+    >
+      {{link.label}}</a>
+  </div>
+
+  <!-- <a
+    mat-tab-link
+    *ngIf="isLoggedIn"
+    (click)="onLogout()"
+  >
+    Logout</a>
+  <a
+    mat-tab-link
+    *ngIf="!isLoggedIn"
+    routerLink="/auth"
+    routerLinkActive="activate"
+  >
+    Login</a> -->
 </nav>
