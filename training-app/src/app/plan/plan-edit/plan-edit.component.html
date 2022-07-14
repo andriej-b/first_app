@@ -1,0 +1,100 @@
+<h1 mat-dialog-title>Test</h1>
+<form
+  [formGroup]="newPlanForm"
+  (ngSubmit)="onAddTraining()"
+>
+  <mat-form-field class="input-width">
+    <input
+      matInput
+      placeholder="Training Name"
+      formControlName="trainingName"
+    >
+  </mat-form-field>
+
+  <div formArrayName="exercises">
+    <div
+      *ngFor="let exerCtrl of controls; let j = index"
+      [formGroupName]="j"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Name"
+          formControlName="name"
+        >
+      </mat-form-field>
+
+
+      <mat-form-field>
+
+        <input
+          matInput
+          placeholder="Series"
+          formControlName="series"
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <input
+          matInput
+          placeholder="Reps"
+          formControlName="reps"
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <input
+          matInput
+          placeholder="Weight"
+          formControlName="weight"
+        >
+        <span matSuffix>kg</span>
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <input
+          matInput
+          placeholder="Description"
+          formControlName="description"
+        >
+      </mat-form-field>
+
+      <button
+        type="button"
+        mat-button
+        color="warn"
+        (click)="onDeleteExercise(j)"
+      >
+        <mat-icon></mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8 m-auto">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="onAddExercise()"
+      >+</button>
+    </div>
+  </div>
+
+
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal"
+      (click)="onCancel()"
+    >Close</button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      data-bs-dismiss="modal"
+    >Save</button>
+  </div>
+</form>

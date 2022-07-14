@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, UntypedFormArray, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from '../shared/data-storage.service';
 import { TrainingPlan } from '../shared/trainingPlan.model';
+import { PlanEditComponent } from './plan-edit/plan-edit.component';
 import { PlanService } from './plan.service';
 
 @Component({
@@ -18,7 +20,8 @@ export class PlanComponent implements OnInit, OnDestroy {
   newPlanForm: FormGroup;
   tPlansSub: Subscription;
   constructor (private planServeice: PlanService,
-    private dataStorageService: DataStorageService) { }
+    private dataStorageService: DataStorageService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     // console.log(this.dataStorageService.fetchData());
@@ -45,6 +48,9 @@ export class PlanComponent implements OnInit, OnDestroy {
       'trainingName': new FormControl(trainingName, Validators.required),
       'exercises': exercises
     });
+  }
+  openDialog() {
+    this.dialog.open(PlanEditComponent);
   }
   toggleEditMode() {
     this.editMode = !this.editMode;
