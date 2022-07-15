@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserEditComponent } from './user-profile/user-edit/user-edit.component';
 import { PlanComponent } from './plan/plan.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthModule } from '@auth0/auth0-angular';
 import { PlanEditComponent } from './plan/plan-edit/plan-edit.component';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,11 +35,6 @@ import { TrainingPlanComponent } from './plan/training-plan/training-plan.compon
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-
-    // AuthModule.forRoot({
-    //   domain:'dev-tnbs5geg.us.auth0.com',
-    //   clientId:'D8VzGdRmloF5OdnFBMhq5dlEVSMfefxg'
-    // })
   ],
   providers: [
     {

@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       },
       {
         label: 'Logout',
-        link: '/auth',
+        link: '/',
         index: 4
       },
     ];
@@ -50,10 +50,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isLoggedIn = true;
       }
     });
-    this.authService.autoLogin();
   }
   onLogout(index: number) {
-    if (index == 4) {
+    if (index === 4 && this.isLoggedIn) {
       this.authService.logout();
     }
   }

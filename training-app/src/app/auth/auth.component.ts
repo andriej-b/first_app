@@ -53,7 +53,7 @@ export class AuthComponent implements OnInit {
       this.userService.setUserData(email);
     } else {
       this.authService.login(email, password).subscribe((resData) => {
-        // console.log(resData);
+        console.log(resData.expiresIn);
         this.router.navigate(['/profile']);
       });
     }

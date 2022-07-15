@@ -36,6 +36,8 @@ export class AuthService {
             resData.localId,
             resData.idToken,
             +resData.expiresIn);
+          // console.log(resData.expiresIn);
+
         })
       );
   }
@@ -46,7 +48,15 @@ export class AuthService {
         email: email,
         password: password,
         returnSecureToken: true
-      });
+      }).pipe(
+        tap((resData) => {
+          this.handleAuth(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn);
+        })
+      );
   }
   autoLogin() {
     let userData: {
@@ -68,27 +78,39 @@ export class AuthService {
     if (loadedUser.token) {
       this.user.next(loadedUser);
       let expirationDate = new Date(userData._tokenExpiresIn).getTime() - new Date().getTime();
+      // console.log(new Date().getTime());
+      // console.log(userData._tokenExpiresIn);
+
+      // console.log(expirationDate);
+
       this.autoLogout(expirationDate);
     }
+
 
 
   };
   autoLogout(timeout: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
+
     }, timeout);
   }
   logout() {
     this.user.next(null);
-    localStorage.removeItem('user');
     this.router.navigate(['/auth']);
+    localStorage.removeItem('user');
+    console.log('logout');
+
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
+    this.tokenExpirationTimer = null;
   }
   private handleAuth(email: string, id: string, token: string, expiresIn: number) {
-    let expirationDate = new Date(new Date().getDate() + expiresIn * 1000);
+    let expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     let user = new AuthUserModel(email, id, token, expirationDate);
+    // console.log(new Date(new Date().getTime() + expiresIn * 1000));
+
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('user', JSON.stringify(user));

@@ -42,9 +42,9 @@ export class PlanEditComponent implements OnInit {
     (<FormArray>this.newPlanForm.get('exercises')).push(
       new FormGroup({
         'name': new FormControl(null, Validators.required),
-        'series': new FormControl(null, Validators.required),
-        'reps': new FormControl(null, Validators.required),
-        'weight': new FormControl(null, Validators.required),
+        'series': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$')]),
+        'reps': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$')]),
+        'weight': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$')]),
         'description': new FormControl(null, Validators.required),
       })
     );
