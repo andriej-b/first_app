@@ -1,11 +1,19 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+
+import { BehaviorSubject, Subject } from "rxjs";
 import { DataStorageService } from "../shared/data-storage.service";
 import { TrainingPlan, Exercise } from "../shared/trainingPlan.model";
+
+interface UpdateModel {
+  mode: boolean,
+  index: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class PlanService {
   // isEditMode = new Subject<boolean>();
+  isUpdating = new BehaviorSubject<UpdateModel>({ mode: false, index: null });
+  trainingPlanEdited = new Subject<TrainingPlan>();
   trainingPlansChanged = new Subject<TrainingPlan[]>();
   // constructor (private dataStorageService: DataStorageService) {
 
@@ -62,6 +70,10 @@ export class PlanService {
   setTrainingPlans(trainingPlans: TrainingPlan[]) {
     this.trainingPlans = trainingPlans;
   }
+  setTrainingPlan(index: number, trainingPlan: TrainingPlan) {
+    this.trainingPlans[index] = trainingPlan;
+    this.trainingPlansChanged.next(this.trainingPlans.slice());
+  }
   addTraining(trainingPlan: TrainingPlan) {
     this.trainingPlans.push(trainingPlan);
     // console.log(this.trainingPlans);
@@ -73,4 +85,5 @@ export class PlanService {
     // console.log('delete training');
     this.trainingPlansChanged.next(this.trainingPlans.slice());
   }
+
 }

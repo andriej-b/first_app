@@ -34,7 +34,7 @@
         mat-raised-button
         color="accent"
         *ngIf="editMode"
-        (click)="onUpdateTraining(i)"
+        (click)="openDialog(i)"
         style="margin-top:2%;"
       >Edit Training {{trainingPlan.trainingName}}</button>
     </mat-tab>

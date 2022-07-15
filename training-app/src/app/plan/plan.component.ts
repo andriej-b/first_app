@@ -17,91 +17,60 @@ export class PlanComponent implements OnInit, OnDestroy {
   isUpdate = false;
   editedTraining: number;
   trainingPlans: TrainingPlan[];
-  newPlanForm: FormGroup;
   tPlansSub: Subscription;
   constructor (private planServeice: PlanService,
     private dataStorageService: DataStorageService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    // console.log(this.dataStorageService.fetchData());
     this.trainingPlans = this.planServeice.getTrainingPlans();
-    // console.log(this.trainingPlans[0]);
     this.tPlansSub = this.planServeice.trainingPlansChanged.subscribe((plans: TrainingPlan[]) => {
       console.log('plan test init');
 
       this.trainingPlans = plans;
     });
-    this.initForm();
+    this.planServeice.isUpdating.subscribe(update => {
+      this.isUpdate = update.mode;
+    });
+
     this.onFetch();
   }
-  get controls() {
-    return (<FormArray>this.newPlanForm.get('exercises')).controls;
-  }
-  private initForm() {
-    let trainingName = null;
-    let exercises = new FormArray([]);
 
-    // console.log(exercises);
-
-    this.newPlanForm = new FormGroup({
-      'trainingName': new FormControl(trainingName, Validators.required),
-      'exercises': exercises
-    });
-  }
-  openDialog() {
-    this.dialog.open(PlanEditComponent);
-  }
+  // openDialog() {
+  //   this.dialog.open(null);
+  // }
   toggleEditMode() {
     this.editMode = !this.editMode;
   }
-  // onAddTraining() {
 
-  //   const newTraining = new TrainingPlan(
-  //     this.newPlanForm.value['trainingName'],
-  //     this.newPlanForm.value['exercises']
-  //   );
-
-  //   if (this.isUpdate) {
-  //     this.onDelete(this.editedTraining);
-  //   }
-  //   this.planServeice.addTraining(newTraining);
-  //   this.dataStorageService.storeData();
-  //   this.isUpdate = false;
-  //   this.editedTraining = null;
-  //   this.onCancel();
-
-  // }
   onFetch() {
     this.dataStorageService.fetchData().subscribe();
   }
-  // onAddExercise() {
 
-  // }
-  onUpdateTraining(index: number) {
-    this.isUpdate = true;
-    this.editedTraining = index;
-    let trainingPlan = this.planServeice.getTrainingPlan(index);
-    let exercises = new FormArray([]);
-    this.openDialog();
-    if (trainingPlan['exercises']) {
-      for (let exercise of trainingPlan['exercises']) {
-        console.log('test');
-        (<FormArray>this.newPlanForm.get('exercises')).push(
-          new FormGroup({
-            'name': new FormControl(exercise.name),
-            'series': new FormControl(exercise.series),
-            'reps': new FormControl(exercise.reps),
-            'weight': new FormControl(exercise.weight),
-            'description': new FormControl(exercise.description)
-          })
-        );
-      }
-      this.newPlanForm.setValue({
-        trainingName: trainingPlan.trainingName,
-        exercises: exercises
-      });
+  openDialog(index?: number) {
+    let trainingPlan = new TrainingPlan('', []);
+    // console.log(index);
+    // console.log(index);
+
+    if (index == undefined) {
+      //  ...
+    } else {
+      this.planServeice.isUpdating.next({ mode: true, index: index });
+      trainingPlan = this.planServeice.getTrainingPlan(index);
+      this.editedTraining = index;
+      console.log(trainingPlan);
+
     }
+    // let trainingPlan = this.planServeice.getTrainingPlan(index);
+
+    // this.planServeice.trainingPlanEdited.next(new TrainingPlan(trainingPlan.trainingName, trainingPlan.exercises));
+    // this.openDialog();
+    this.dialog.open(PlanEditComponent, {
+      data: trainingPlan
+    });
+    // this.planServeice.updatingTrainin(index);
+    // console.log(trainingPlan);
+
   }
   onDeleteExercise(index: number) {
   }
@@ -110,10 +79,7 @@ export class PlanComponent implements OnInit, OnDestroy {
     this.planServeice.deleteTraining(index);
     this.dataStorageService.storeData();
   }
-  onCancel() {
-    this.newPlanForm.reset();
-    (<FormArray>this.newPlanForm.get('exercises')).clear();
-  }
+
   ngOnDestroy(): void {
     this.tPlansSub.unsubscribe();
   }
