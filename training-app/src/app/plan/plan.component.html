@@ -1,109 +1,9 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <button
-        type="button"
-        class="btn btn-success"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        *ngIf="editMode"
-      >
-        Add training</button>
-      <button
-        type="button"
-        mat-button
-        (click)="toggleEditMode()"
-      >
-        Edit</button>
-      <table
-        class="table caption-top"
-        *ngFor="let trainingPlan of trainingPlans;let j =index"
-      >
-        <caption>
-          {{trainingPlan.trainingName}}
-          <div
-            class="btn-group ms-10"
-            *ngIf="editMode"
-          >
-            <button
-              type="button"
-              class="btn btn-danger"
-              (click)="onDelete(j)"
-            >
-              Delete</button><button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              (click)="onUpdateTraining(j)"
-            > Edit</button>
-          </div>
-
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">name</th>
-            <th scope="col">series</th>
-            <th scope="col">reps</th>
-            <th scope="col">weight</th>
-            <th scope="col">desc</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            scope="row"
-            *ngFor="let exercise of trainingPlan.exercises; let i = index"
-          >
-            <th scope="row">{{i+1}}</th>
-            <td class="text-wrap">{{exercise.name}}</td>
-            <td>{{exercise.series}}</td>
-            <td>{{exercise.reps}}</td>
-            <td>{{exercise.weight}} kg</td>
-            <td class="text-wrap">{{exercise.description}}</td>
-            <td *ngIf="editMode"></td>
-
-          </tr>
-        </tbody>
-      </table>
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5
-                class="modal-title"
-                id="exampleModalLabel"
-              >Adding Training</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                (click)="onCancel()"
-              ></button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div> -->
 <mat-card>
   <button
     mat-raised-button
     type="button"
     (click)="toggleEditMode()"
-  >Start Editing</button>
+  >{{editMode?'End':'Start'}} Editing</button>
   <button
     mat-raised-button
     color="accent"
@@ -112,12 +12,31 @@
     (click)="openDialog()"
   >Add Training</button>
 
-  <mat-tab-group mat-align-tabs="center">
+  <mat-tab-group
+    mat-align-tabs="center"
+    dynamicHeight=""
+  >
     <mat-tab
       label="{{trainingPlan.trainingName}}"
       *ngFor="let trainingPlan of trainingPlans;let i = index"
     >
       <app-training-plan [trainingIndex]="i"></app-training-plan>
+      <button
+        type="button"
+        mat-raised-button
+        color="warn"
+        *ngIf="editMode"
+        (click)="onDelete(i)"
+        style="margin-top:2%;"
+      >Delete training {{trainingPlan.trainingName}}</button>
+      <button
+        type="button"
+        mat-raised-button
+        color="accent"
+        *ngIf="editMode"
+        (click)="onUpdateTraining(i)"
+        style="margin-top:2%;"
+      >Edit Training {{trainingPlan.trainingName}}</button>
     </mat-tab>
   </mat-tab-group>
 </mat-card>

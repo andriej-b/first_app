@@ -72,30 +72,32 @@
       </button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-8 m-auto">
-      <button
-        type="button"
-        mat-button
-        color="accent"
-        (click)="onAddExercise()"
-      >+</button>
-    </div>
-  </div>
-
-
-
-  <div class="modal-footer">
+  <div>
     <button
       type="button"
-      class="btn btn-secondary"
-      data-bs-dismiss="modal"
+      mat-button
+      color="accent"
+      (click)="onAddExercise()"
+    >+</button>
+  </div>
+
+  <mat-dialog-actions align="end">
+    <button
+      mat-button
+      mat-dialog-close
       (click)="onCancel()"
-    >Close</button>
+    >
+      Cancel
+    </button>
     <button
       type="submit"
-      class="btn btn-primary"
-      data-bs-dismiss="modal"
-    >Save</button>
-  </div>
+      mat-button
+      color="accent"
+      [mat-dialog-close]="true"
+      cdkFocusInitial
+    >
+      Save
+    </button>
+  </mat-dialog-actions>
+
 </form>

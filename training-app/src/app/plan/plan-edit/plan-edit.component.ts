@@ -23,6 +23,9 @@ export class PlanEditComponent implements OnInit {
       this.newPlanForm.value['trainingName'],
       this.newPlanForm.value['exercises']
     );
+
+    this.planService.addTraining(newTraining);
+    this.dataStorageService.storeData();
   }
   private initForm() {
     let trainingName = null;

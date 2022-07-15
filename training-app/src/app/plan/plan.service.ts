@@ -5,6 +5,7 @@ import { TrainingPlan, Exercise } from "../shared/trainingPlan.model";
 
 @Injectable({ providedIn: 'root' })
 export class PlanService {
+  // isEditMode = new Subject<boolean>();
   trainingPlansChanged = new Subject<TrainingPlan[]>();
   // constructor (private dataStorageService: DataStorageService) {
 

@@ -55,34 +55,35 @@ export class PlanComponent implements OnInit, OnDestroy {
   toggleEditMode() {
     this.editMode = !this.editMode;
   }
-  onAddTraining() {
+  // onAddTraining() {
 
-    const newTraining = new TrainingPlan(
-      this.newPlanForm.value['trainingName'],
-      this.newPlanForm.value['exercises']
-    );
+  //   const newTraining = new TrainingPlan(
+  //     this.newPlanForm.value['trainingName'],
+  //     this.newPlanForm.value['exercises']
+  //   );
 
-    if (this.isUpdate) {
-      this.onDelete(this.editedTraining);
-    }
-    this.planServeice.addTraining(newTraining);
-    this.dataStorageService.storeData();
-    this.isUpdate = false;
-    this.editedTraining = null;
-    this.onCancel();
+  //   if (this.isUpdate) {
+  //     this.onDelete(this.editedTraining);
+  //   }
+  //   this.planServeice.addTraining(newTraining);
+  //   this.dataStorageService.storeData();
+  //   this.isUpdate = false;
+  //   this.editedTraining = null;
+  //   this.onCancel();
 
-  }
+  // }
   onFetch() {
     this.dataStorageService.fetchData().subscribe();
   }
-  onAddExercise() {
+  // onAddExercise() {
 
-  }
+  // }
   onUpdateTraining(index: number) {
     this.isUpdate = true;
     this.editedTraining = index;
     let trainingPlan = this.planServeice.getTrainingPlan(index);
     let exercises = new FormArray([]);
+    this.openDialog();
     if (trainingPlan['exercises']) {
       for (let exercise of trainingPlan['exercises']) {
         console.log('test');
