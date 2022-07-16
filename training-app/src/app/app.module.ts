@@ -16,6 +16,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { TrainingPlanComponent } from './plan/training-plan/training-plan.component';
 
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from 'src/environments/environment';
+import { LoginButtonComponent } from './components/login-button/login-button.component';
+import { SignupButtonComponent } from './components/signup-button/signup-button.component';
+import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
+import { AuthenticationButtonComponent } from './components/authentication-button/authentication-button.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,12 @@ import { TrainingPlanComponent } from './plan/training-plan/training-plan.compon
     UserEditComponent,
     PlanComponent,
     PlanEditComponent,
-    TrainingPlanComponent
+    TrainingPlanComponent,
+    LoginButtonComponent,
+    SignupButtonComponent,
+    LogoutButtonComponent,
+    AuthenticationButtonComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -35,6 +46,9 @@ import { TrainingPlanComponent } from './plan/training-plan/training-plan.compon
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    AuthModule.forRoot({
+      ...env.auth,
+    })
   ],
   providers: [
     {
