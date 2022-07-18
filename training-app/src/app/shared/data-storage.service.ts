@@ -4,7 +4,8 @@ import { Observable, throwError } from "rxjs";
 import { catchError, map, retry, tap } from "rxjs/operators";
 import { PlanService } from "../plan/plan.service";
 import { TrainingPlan } from "./trainingPlan.model";
-import { AuthService } from "../auth/auth.service";
+
+import { environment as env } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +14,16 @@ export class DataStorageService implements OnInit {
   userToken: string = null;
   constructor (private http: HttpClient,
     private planService: PlanService,
-    private authService: AuthService) {
+  ) {
 
   }
 
   ngOnInit(): void {
-    this.authService.user.subscribe(user => {
-      this.userToken = user.token;
-    });
+
   }
 
   fetchData() {
-
-    return this.http.get<TrainingPlan[]>(
-      'https://ng-project-9ef3b-default-rtdb.europe-west1.firebasedatabase.app/trainingPlans.json'
-    ).pipe(
+    return this.http.get<TrainingPlan[]>(`${env.dev.serverUrl}/api/plans/getPlans`).pipe(
       map(trainings => {
         return trainings.map(training => {
           return {
@@ -40,19 +36,14 @@ export class DataStorageService implements OnInit {
         this.planService.setTrainingPlans(trainings);
       })
     );
-
   }
   storeData() {
     const trainingData = this.planService.getTrainingPlans();
+    return this.http.put<TrainingPlan[]>(`${env.dev.serverUrl}/api/plans/setPlans`, trainingData).subscribe(response => {
 
-    this.http.put(
-      'https://ng-project-9ef3b-default-rtdb.europe-west1.firebasedatabase.app/trainingPlans.json',
-      trainingData
-    ).subscribe((response) => {
-      console.log(response);
+      console.log(trainingData);
+
     });
   }
-  // deleteData(index: number) {
-  //   return this.http.delete(`https://ng-project-9ef3b-default-rtdb.europe-west1.firebasedatabase.app/trainingPlans.json/${index}`);
-  // }
+
 }

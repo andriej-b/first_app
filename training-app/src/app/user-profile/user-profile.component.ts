@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 import { Subscription } from 'rxjs';
 import { UserModel } from '../shared/user.model';
 import { UserService } from './user.service';
@@ -17,7 +18,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   constructor (private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService) { }
+    private userService: UserService,
+    public auth: AuthService) { }
 
   ngOnInit(): void {
     this.user = this.userService.getUserData();
@@ -28,15 +30,23 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.editMode = editMode;
     });
     this.editMode = false;
+    this.auth.user$.subscribe((profile) => {
+      this.user = {
+        email: profile.email,
+        username: profile.nickname,
+        name: profile.name,
+        image: profile.picture
+      };
+    });
+
+
   }
   onEdit() {
     this.editMode = true;
-    console.log('editmode');
     this.userService.startedEditMode.next(this.editMode);
   }
   onDelete() {
     this.userService.deleteUserData();
-    console.log('delete user');
     this.router.navigate(['/auth']);
   }
   ngOnDestroy(): void {

@@ -1,54 +1,27 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-      <div
-        class="card"
-        style="width: 20rem;"
-      >
-        <img
-          [src]="user.image"
-          alt="..."
-          class="card-img-top img-flex"
-        >
-        <div class="card-body">
-          <h5 class="card-title">
-            Hello, {{user.username}}
-          </h5>
-          <p class="card-text">{{user.name}}</p>
-          <p class="card-text">{{user.email}}</p>
-          <div class="d-grid gap-2">
-            <div>
-              <button
-                type="button"
-                class="btn btn-primary "
-                style="width:100%"
-                (click)="onEdit()"
-                *ngIf="!editMode"
-              >
-                Edit
-              </button>
-            </div>
-            <div>
-              <button
-                type="button"
-                class="btn btn-danger "
-                style="width:100%"
-                (click)="onDelete()"
-                *ngIf="editMode"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
 
-        </div>
+  <mat-card class="card-max-width">
+    <img
+      mat-card-image
+      [src]="user.image"
+      alt="usr picture"
+    >
+    <mat-card-title-group>
 
-      </div>
 
-    </div>
-    <div class="col-sm-6">
-      <!-- <router-outlet></router-outlet> -->
-      <app-user-edit *ngIf="editMode"></app-user-edit>
-    </div>
-  </div>
+      <mat-card-title>Hello, {{user.name}}</mat-card-title>
+
+    </mat-card-title-group>
+    <mat-card-content>
+      email: {{user.email}}<br>
+      username: {{user.username}}
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-button
+        type="button"
+      >Edit</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

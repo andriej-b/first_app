@@ -16,6 +16,7 @@ export class PlanResolver implements Resolve<TrainingPlan[]> {
     const trainings = this.planService.getTrainingPlans();
     if (trainings.length === 0) {
       return this.dataStorageService.fetchData();
+      // return trainings;
     } else {
       return trainings;
     }

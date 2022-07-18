@@ -1,4 +1,6 @@
 {
   "domain":"dev-tnbs5geg.us.auth0.com",
-  "clientId":"D8VzGdRmloF5OdnFBMhq5dlEVSMfefxg"
+  "clientId":"D8VzGdRmloF5OdnFBMhq5dlEVSMfefxg",
+  "audience":"https://express.sample",
+  "serverUrl":"http://localhost:6060"
 }

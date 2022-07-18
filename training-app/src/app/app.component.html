@@ -1,8 +1,17 @@
-<app-header></app-header>
-<div class="container margin-top">
-  <div class="row">
-    <div class="col-md-12">
-      <router-outlet></router-outlet>
-    </div>
+<div>
+  <div *ngIf="auth.isLoading$|async; else loaded">
+    <mat-spinner></mat-spinner>
   </div>
+  <ng-template #loaded>
+    <app-header></app-header>
+
+    <div class="container margin-top">
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
 </div>

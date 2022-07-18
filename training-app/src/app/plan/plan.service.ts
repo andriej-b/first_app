@@ -11,11 +11,9 @@ interface UpdateModel {
 
 @Injectable({ providedIn: 'root' })
 export class PlanService {
-  // isEditMode = new Subject<boolean>();
   isUpdating = new BehaviorSubject<UpdateModel>({ mode: false, index: null });
   trainingPlanEdited = new Subject<TrainingPlan>();
   trainingPlansChanged = new Subject<TrainingPlan[]>();
-  // constructor (private dataStorageService: DataStorageService) {
 
 
   private trainingPlans: TrainingPlan[] = [];

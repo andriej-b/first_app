@@ -7,6 +7,13 @@ import { TrainingPlan } from '../shared/trainingPlan.model';
 import { PlanEditComponent } from './plan-edit/plan-edit.component';
 import { PlanService } from './plan.service';
 
+import { HttpClient } from '@angular/common/http';
+import { environment as env } from 'src/environments/environment';
+
+
+interface Message {
+  message: string;
+}
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -18,14 +25,17 @@ export class PlanComponent implements OnInit, OnDestroy {
   editedTraining: number;
   trainingPlans: TrainingPlan[];
   tPlansSub: Subscription;
+
+  message: string = null;
+
   constructor (private planServeice: PlanService,
     private dataStorageService: DataStorageService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.trainingPlans = this.planServeice.getTrainingPlans();
     this.tPlansSub = this.planServeice.trainingPlansChanged.subscribe((plans: TrainingPlan[]) => {
-      console.log('plan test init');
 
       this.trainingPlans = plans;
     });
@@ -36,21 +46,33 @@ export class PlanComponent implements OnInit, OnDestroy {
     this.onFetch();
   }
 
-  // openDialog() {
-  //   this.dialog.open(null);
-  // }
+  callApi(): void {
+    this.http.get(`${env.dev.serverUrl}/api/messages/protected-message`)
+      .subscribe((result) => {
+        console.log(result);
+
+      });
+  }
+  callSecureApi(): void {
+    this.http.get(`${env.dev.serverUrl}/api/plans/getPlans`)
+      .subscribe((result) => {
+        console.log(result);
+      });
+  }
   toggleEditMode() {
     this.editMode = !this.editMode;
   }
 
   onFetch() {
-    this.dataStorageService.fetchData().subscribe();
+    this.dataStorageService.fetchData().subscribe(result => {
+      // console.log(result);
+
+    });
   }
 
   openDialog(index?: number) {
     let trainingPlan = new TrainingPlan('', []);
-    // console.log(index);
-    // console.log(index);
+
 
     if (index == undefined) {
       //  ...
@@ -58,18 +80,13 @@ export class PlanComponent implements OnInit, OnDestroy {
       this.planServeice.isUpdating.next({ mode: true, index: index });
       trainingPlan = this.planServeice.getTrainingPlan(index);
       this.editedTraining = index;
-      console.log(trainingPlan);
+
 
     }
-    // let trainingPlan = this.planServeice.getTrainingPlan(index);
 
-    // this.planServeice.trainingPlanEdited.next(new TrainingPlan(trainingPlan.trainingName, trainingPlan.exercises));
-    // this.openDialog();
     this.dialog.open(PlanEditComponent, {
       data: trainingPlan
     });
-    // this.planServeice.updatingTrainin(index);
-    // console.log(trainingPlan);
 
   }
   onDeleteExercise(index: number) {

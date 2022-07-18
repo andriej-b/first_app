@@ -95,6 +95,7 @@
       color="accent"
       [mat-dialog-close]="true"
       cdkFocusInitial
+      [disabled]="!newPlanForm.valid"
     >
       {{updateMode?'Update':'Save'}}
     </button>

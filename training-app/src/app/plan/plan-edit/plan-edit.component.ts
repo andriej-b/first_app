@@ -33,7 +33,7 @@ export class PlanEditComponent implements OnInit {
       this.newPlanForm.value['exercises']
     );
     if (this.updateMode) {
-      console.log(this.editedIndex);
+      // console.log(this.editedIndex);
 
       this.planService.setTrainingPlan(this.editedIndex, newTraining);
     } else {
@@ -45,7 +45,7 @@ export class PlanEditComponent implements OnInit {
   private initForm() {
 
     this.planService.trainingPlanEdited.subscribe(formData => {
-      console.log(formData);
+      // console.log(formData);
 
     });
     if (this.data == null) {

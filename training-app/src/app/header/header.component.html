@@ -1,55 +1,3 @@
-<!-- <nav class="navbar navbar-default">
-  <div class="navbar-fluid ">
-    <ul class="nav">
-      <li
-        class="nav-item"
-        routerLinkActive="active"
-      >
-        <a
-          class="nav-link"
-          routerLink="/plan"
-        >Plan</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">Summary</a>
-      </li>
-      <li
-        class="nav-item justify-content-end"
-        routerLinkActive="activate"
-      >
-        <a
-          class="nav-link"
-          routerLink="/auth"
-          *ngIf="!isLoggedIn"
-        >Login</a>
-      </li>
-      <li
-        class="nav-item justify-content-end"
-        routerLinkActive="activate"
-      >
-        <a
-          class="nav-link"
-          routerLink="/auth"
-          *ngIf="isLoggedIn"
-        >Logout</a>
-      </li>
-      <li
-        class="nav-item justify-content-end"
-        routerLinkActive="activate"
-      >
-        <a
-          class="nav-link"
-          routerLink="/profile"
-          *ngIf="isLoggedIn"
-        >My Account</a>
-      </li>
-    </ul>
-
-
-  </div>
-</nav> -->
-
-
 <nav mat-tab-nav-bar>
   <div *ngFor="let link of navLinks">
 
@@ -60,33 +8,8 @@
       routerLinkActive
       #rla="routerLinkActive"
       [active]="rla.isActive"
-      (click)="onLogout(link.index)"
     >
       {{link.label}}</a>
-
-
-    <!-- <a
-      mat-tab-link
-      [routerLink]="'/auth'"
-      routerLinkActive
-      #rla="routerLinkActive"
-      [active]="rla.isActive"
-
-      ></a> -->
   </div>
   <app-authentication-button></app-authentication-button>
-
-  <!-- <a
-    mat-tab-link
-    *ngIf="isLoggedIn"
-    (click)="onLogout()"
-  >
-    Logout</a>
-  <a
-    mat-tab-link
-    *ngIf="!isLoggedIn"
-    routerLink="/auth"
-    routerLinkActive="activate"
-  >
-    Login</a> -->
 </nav>
